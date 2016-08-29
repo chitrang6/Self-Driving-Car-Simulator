@@ -15,6 +15,7 @@ import cv2
 from skimage import io
 import glob
 import lmdb
+import time
 
 # Make sure that caffe is on the python path:
 caffe_root = '/home/ubuntu/dhruv/caffe/'  # this file is expected to be in {caffe_root}/examples
@@ -74,11 +75,13 @@ Making predicitions
 '''
 #Reading image paths
 test_img_paths = [img_path for img_path in glob.glob("/home/ubuntu/Documents/chitrang/Deep_Learning_Car_295B/test_data/*png")]
-
+start = time.time()
+total = 0
 #Making predictions
 test_ids = []
 preds = []
 for img_path in test_img_paths:
+    total = total + 1
     img = cv2.imread(img_path, cv2.IMREAD_COLOR)
     img = transform_img(img, img_width=IMAGE_WIDTH, img_height=IMAGE_HEIGHT)
     
@@ -93,6 +96,13 @@ for img_path in test_img_paths:
     print pred_probas.argmax()
     print '-------'
 
+end = time.time()
+
+time_taken = end - start
+print "Time Taken: " + str(time_taken)
+print "Total images for testing is: " + str(total)
+total = time_taken / total 
+print "Time taken for single image is: " + str(total)
 '''
 Making submission file
 '''
