@@ -26,7 +26,7 @@ import random
 import caffe
 from caffe.proto import caffe_pb2
 
-caffe.set_mode_gpu() 
+caffe.set_mode_cpu() 
 
 #Size of images
 IMAGE_WIDTH = 64
